@@ -5,6 +5,7 @@ pipeline{
     environment {
         BUILD_NAME = "ganesh_test"
         GIT_KEY = credentials("github_ssh")
+        TEST_PASS = credentials("test")
     }
     stages{
         stage("build"){
@@ -21,6 +22,7 @@ pipeline{
                 echo "Current branch name is the ${BRANCH_NAME}" 
                 echo "build name: ${BUILD_NAME}"
                 echo "${GIT_KEY}"
+                echo "${TEST_PASS}"
             }
         }
         stage("test"){
