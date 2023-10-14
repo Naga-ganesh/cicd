@@ -6,7 +6,17 @@ pipeline{
                 echo "Building docker container"
                 echo "tagging docker image"
                 echo "${BRANCH_NAME}"
-                ech "hello world"
+                echo "hello world"
+            }
+        }
+        stage("test"){
+            when {
+                expression {
+                    BRANCH_NAME == "dev"
+                }
+            }
+            steps{
+                echo "testing the application"
             }
         }
     }
