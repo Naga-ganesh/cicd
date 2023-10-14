@@ -1,3 +1,5 @@
+// gv variable will be available on all stages
+def gv
 pipeline{
     agent any
     // to get the env variables use https://jenkins_url/env-vars/html
@@ -13,6 +15,14 @@ pipeline{
         booleanParam(name: 'executeTests', defaultValue: true, description: 'to run the tests')
     }
     stages{
+        stage("init") {
+            steps {
+                script {
+                    // importing the groovy script file 
+                    def gv = load "scripts.groovy"
+                }
+            }
+        }
         stage("build"){
             // when condition to run this stage("build")
             when {
@@ -22,13 +32,10 @@ pipeline{
             }
             // steps for the stages to build
             steps{
-                echo "Building docker container"
-                echo "tagging docker image"
-                echo "Current branch name is the ${BRANCH_NAME}" 
-                echo "build name: ${BUILD_NAME}"
-                echo "${GIT_KEY}"
-                echo "Feature name ${params.FEATURE_NAME} with the version of ${params.version}"
-                echo "${TEST_PASS}"
+                script {
+                    // executing the groovy script build function
+                    gv.build()
+                }
             }
         }
         stage("dev_test"){
