@@ -5,6 +5,7 @@ pipeline{
             steps{
                 echo "Building docker container"
                 echo "tagging docker image"
+                echo "${BRANCH_NAME}"
                 ech "hello world"
             }
         }
