@@ -33,8 +33,9 @@ pipeline{
             // steps for the stages to build
             steps{
                 script {
+                    def testfile = load "scripts.groovy"
                     // executing the groovy script build function
-                    gv.build()
+                    testfile.build()
                 }
             }
         }
