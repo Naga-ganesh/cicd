@@ -7,6 +7,11 @@ pipeline{
         GIT_KEY = credentials("github_ssh")
         TEST_PASS = credentials("test")
     }
+    parameters {
+        string(name: 'FEATURE_NAME', defaultValue: 'latest', description: 'name for the application')
+        choice(name: 'version', choices: ['1.0.0', '1.0.1', '1.0.2'], description: 'version for the application')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'to run the tests')
+    }
     stages{
         stage("build"){
             // when condition to run this stage("build")
@@ -22,7 +27,18 @@ pipeline{
                 echo "Current branch name is the ${BRANCH_NAME}" 
                 echo "build name: ${BUILD_NAME}"
                 echo "${GIT_KEY}"
+                echo "Feature name ${params.FEATURE_NAME} with the version of ${params.version}"
                 echo "${TEST_PASS}"
+            }
+        }
+        stage("dev_test"){
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
+            steps{
+                echo "====++++executing dev_test++++===="
             }
         }
         stage("test"){
