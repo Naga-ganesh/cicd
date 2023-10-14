@@ -19,7 +19,7 @@ pipeline{
             steps {
                 script {
                     // importing the groovy script file 
-                    def gv = load "scripts.groovy"
+                    gv = load "scripts.groovy"
                 }
             }
         }
