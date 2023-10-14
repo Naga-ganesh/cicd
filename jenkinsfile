@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+        BUILD_NAME = "ganesh_test"
+    }
     stages{
         stage("build"){
             when {
@@ -10,8 +13,9 @@ pipeline{
             steps{
                 echo "Building docker container"
                 echo "tagging docker image"
-                echo "Current branch name is the ${BRANCH_NAME}"
-                echo "hello world"
+                echo "Current branch name is the ${BRANCH_NAME}" 
+                // to get the env variables use https://jenkins_url/env-vars/html
+                echo "build name: ${BUILD_NAME}"
             }
         }
         stage("test"){
