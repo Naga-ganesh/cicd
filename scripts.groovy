@@ -8,3 +8,5 @@ def build() {
     echo "Feature name ${params.FEATURE_NAME} with the version of ${params.version}"
     echo "${TEST_PASS}"
 }
+
+return this
