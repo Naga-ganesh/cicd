@@ -1,4 +1,5 @@
 // gv variable will be available on all stages
+def gv
 pipeline{
     agent any
     // to get the env variables use https://jenkins_url/env-vars/html
@@ -14,6 +15,11 @@ pipeline{
         booleanParam(name: 'executeTests', defaultValue: true, description: 'to run the tests')
     }
     stages{
+        stage("init") {
+            steps {
+                gv = load "scripts.groovy"
+            }
+        }
         stage("build"){
             // when condition to run this stage("build")
             when {
@@ -24,9 +30,8 @@ pipeline{
             // steps for the stages to build
             steps{
                 script {
-                    def testfile = load "scripts.groovy"
                     // executing the groovy script build function
-                    testfile.build()
+                    gv.build()
                 }
             }
         }
