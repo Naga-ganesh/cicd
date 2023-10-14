@@ -1,26 +1,32 @@
 pipeline{
     agent any
+    // to get the env variables use https://jenkins_url/env-vars/html
+    // set environment variable can be used throughout this jenkinsfile
     environment {
         BUILD_NAME = "ganesh_test"
+        GIT_KEY = credentials("github_ssh")
     }
     stages{
         stage("build"){
+            // when condition to run this stage("build")
             when {
                 expression {
                     BRANCH_NAME == "main"
                 }
             }
+            // steps for the stages to build
             steps{
                 echo "Building docker container"
                 echo "tagging docker image"
                 echo "Current branch name is the ${BRANCH_NAME}" 
-                // to get the env variables use https://jenkins_url/env-vars/html
                 echo "build name: ${BUILD_NAME}"
+                echo "${GIT_KEY}"
             }
         }
         stage("test"){
             when {
                 expression {
+                    // || refers to `or` condition && refers to `and` condition
                     BRANCH_NAME == "dev" || BRANCH_NAME == "test"
                 }
             }
