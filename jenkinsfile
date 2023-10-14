@@ -6,6 +6,9 @@ pipeline{
                 echo "Building docker container"
             }
             
+            steps{
+                echo "Building docker container-2"
+            }
         }
     }
 }
