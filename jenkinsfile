@@ -5,7 +5,7 @@ pipeline{
             steps{
                 echo "Building docker container"
                 echo "tagging docker image"
-                echo "hello world"
+                ech "hello world"
             }
         }
     }
